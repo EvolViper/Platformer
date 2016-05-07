@@ -21,6 +21,7 @@ function preload() {
     game.load.image('background', 'assets/background.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('platform1', 'assets/platform1.png');
+    game.load.image('platform2', 'assets/platform2.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('tree', 'assets/tree.png');
     game.load.image('strawberry', 'assets/strawberry.png');
@@ -63,8 +64,8 @@ function create() {
     game.add.sprite(20, 480, "tree");
     game.add.sprite(120, 480, "tree");
     game.add.sprite(1020, 480, "tree");
-    game.add.sprite(1400, 360, "tree");
-    game.add.sprite(1200, 360, "tree");
+    game.add.sprite(1400, 40, "tree");
+    game.add.sprite(1200, 40, "tree");
     
     
     
@@ -91,6 +92,9 @@ function create() {
     platform1.body.immovable = true;
     platform1 = myPlatforms.create(-150, 350, "platform1");
     platform1.body.immovable = true;
+    platform1 = myPlatforms.create(1200, 400, "platform2");
+    platform1.body.immovable = true;
+    
     
     
     player = game.add.sprite(900, 500, 'monster');
