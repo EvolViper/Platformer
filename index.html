@@ -22,6 +22,7 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('platform1', 'assets/platform1.png');
     game.load.image('platform2', 'assets/platform2.png');
+    game.load.image('platform3', 'assets/platform3.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('tree', 'assets/tree.png');
     game.load.image('strawberry', 'assets/strawberry.png');
@@ -86,13 +87,17 @@ function create() {
     
     }
     
+    //Создание платформ
+    
     myPlatforms = game.add.group();
     myPlatforms.enableBody = true;
-    var platform1 = myPlatforms.create(500, 600, "platform1");
+    var platform1 = myPlatforms.create(500, 600, "platform2");
     platform1.body.immovable = true;
-    platform1 = myPlatforms.create(-150, 350, "platform1");
+    platform1 = myPlatforms.create(-150, 350, "platform2");
     platform1.body.immovable = true;
-    platform1 = myPlatforms.create(1200, 400, "platform2");
+    platform1 = myPlatforms.create(1200, 400, "platform3");
+    platform1.body.immovable = true;
+    platform1 = myPlatforms.create(2100, 300, "platform1");
     platform1.body.immovable = true;
     
     
