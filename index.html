@@ -24,6 +24,7 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.image('tree', 'assets/tree.png');
     game.load.image('strawberry', 'assets/strawberry.png');
+    game.load.image('groundSprite', 'assets/ground2.png');
     game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
 }
 
@@ -53,6 +54,8 @@ function create() {
     
     }
     
+    
+    
     game.add.sprite(0, 0, 'background');
     game.add.sprite(1600, 0, 'background');
     game.add.sprite(0, -5, "tree");
@@ -62,13 +65,25 @@ function create() {
     game.add.sprite(1020, 480, "tree");
     game.add.sprite(1400, 360, "tree");
     game.add.sprite(1200, 360, "tree");
+    
+    
+    
+    
+    
     platforms = game.add.group();
     platforms.enableBody = true;
     var ground = platforms.create(0, 840, 'ground');
     ground.scale.setTo(16, 2);
     ground.body.immovable = true;
   
+    //Добавление земли
     
+    
+    for (var i = 0, groundPosition = 0; i < 90; i++) {
+        game.add.sprite(-3 + groundPosition, 838, "groundSprite");
+        groundPosition += 109;
+    
+    }
     
     myPlatforms = game.add.group();
     myPlatforms.enableBody = true;
