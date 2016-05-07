@@ -24,7 +24,7 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.image('tree', 'assets/tree.png');
     game.load.image('strawberry', 'assets/strawberry.png');
-    game.load.spritesheet('monster', 'assets/sprites3.png', 214, 235);
+    game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
 }
 
 var score = 0;
@@ -33,9 +33,28 @@ var movementDirection;
 var strawberries;
 var myPlatforms;
 
+//Переменная хранит текущее положение игрока
+
+var playerPosition;
+
 function create() {
+    //Создание игрового мира 
+    game.world.setBounds(0, 0, 4800, 900);
+    
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    
+    //Добавление фона
+    
+    for (var i = 0, stage = 0; i < 3; i++) {
+        
+        game.add.sprite(0 + stage, 0, 'background');
+        stage += 1600;
+    
+    }
+    
     game.add.sprite(0, 0, 'background');
+    game.add.sprite(1600, 0, 'background');
     game.add.sprite(0, -5, "tree");
     game.add.sprite(620, 240, "tree");
     game.add.sprite(20, 480, "tree");
@@ -46,7 +65,7 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
     var ground = platforms.create(0, 840, 'ground');
-    ground.scale.setTo(4, 2);
+    ground.scale.setTo(16, 2);
     ground.body.immovable = true;
   
     
@@ -59,7 +78,7 @@ function create() {
     platform1.body.immovable = true;
     
     
-    player = game.add.sprite(120, 500, 'monster');
+    player = game.add.sprite(900, 500, 'monster');
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
@@ -120,6 +139,7 @@ function update() {
     if (cursors.left.isDown)
     {
         //  Move to the left
+        
         player.body.velocity.x = -250;
         player.animations.play('left');
         movementDirection = "left";
@@ -127,6 +147,7 @@ function update() {
     else if (cursors.right.isDown)
     {
         //  Move to the right
+        
         player.body.velocity.x = 250;
         player.animations.play('right');
         movementDirection = "right";
@@ -142,7 +163,20 @@ function update() {
         player.body.velocity.y = -450;
         
     }
+    
+    
+    //Движение камеры
+    
+    if (player.position.x > playerPosition && player.position.x > 600) {
+        game.camera.x += 4;
+    }
+    
+    else if (player.position.x < playerPosition && player.position.x < game.world.width - 900) {
+        game.camera.x -= 4;
+    }
    
+   playerPosition = player.position.x;
+   console.log(playerPosition);
 }
 
 function collectStar (player, star) {
