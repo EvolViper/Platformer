@@ -3,7 +3,7 @@ var scoreText;
 var movementDirection;
 var strawberries;
 var myPlatforms;
-var player;
+var player = {};
 var playerPosition;
 
 var playState = {
@@ -73,6 +73,7 @@ var playState = {
 
 
         player = game.add.sprite(900, 500, 'monster');
+        player.test = 242;
         game.physics.arcade.enable(player);
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 300;
@@ -172,7 +173,13 @@ var playState = {
        playerPosition = player.position.x;
        console.log(playerPosition);
 
-        }
+        },
+    
+    render: function() {
+        //Счетчик FPS
+	   game.debug.text(game.time.fps, 100, 104, "#000000");
+        game.debug.text(player.test, 100, 124, "#000000");
+    }
     
 };
 
