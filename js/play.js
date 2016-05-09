@@ -125,8 +125,8 @@ var playState = {
         game.physics.arcade.collide(strawberries, myPlatforms);
         game.physics.arcade.collide(stars, platforms);
         game.physics.arcade.collide(strawberries, platforms);
-        game.physics.arcade.overlap(player, stars, collectStar, null, this);
-        game.physics.arcade.overlap(player, strawberries, collectStrawberry, null, this);
+        game.physics.arcade.overlap(player, stars, collect, null, this);
+        game.physics.arcade.overlap(player, strawberries, collect, null, this);
 
         player.body.velocity.x = 0;
 
@@ -183,20 +183,9 @@ var playState = {
     
 };
 
-function collectStar (player, star) {
-
-    // Removes the star from the screen
-    star.kill();
-    score += 10;
+function collect (player, trophy) {
+    // Removes the trophy from the screen
+    trophy.kill();
+    score += 30;
     scoreText.text = 'Score: ' + score;
-
-}
-
-function collectStrawberry (player, strawberry) {
-
-    // Removes the star from the screen
-    strawberry.kill();
-    score += 10;
-    scoreText.text = 'Score: ' + score;
-
-}
+};
