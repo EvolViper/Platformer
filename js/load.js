@@ -21,6 +21,10 @@ var loadState = {
     },
     
     create: function() {
+        game.time.events.add(400, this.startMenu, this);
+    },
+    
+    startMenu: function() {
         game.state.start("menu");
     }
 };
