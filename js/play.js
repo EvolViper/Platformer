@@ -74,6 +74,7 @@ var playState = {
 
         //player = game.add.sprite(900, 500, 'monster');
         player = game.add.sprite(900, 500, 'mushroom');
+        player.anchor.setTo(.5,.5);
         player.test = 242;
         game.physics.arcade.enable(player);
         player.body.bounce.y = 0.2;
@@ -145,7 +146,7 @@ var playState = {
         else if (cursors.right.isDown)
         {
             //  Move to the right
-
+            player.scale.x *= -1;
             player.body.velocity.x = 250;
             player.animations.play('right');
             movementDirection = "right";
