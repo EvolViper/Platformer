@@ -198,6 +198,7 @@ var playState = {
 function collect (player, trophy) {
     // Removes the trophy from the screen
     trophy.kill();
+    player.loadTexture("monster", 0, false);
     score += 30;
     scoreText.text = 'Score: ' + score;
 };
