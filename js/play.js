@@ -5,6 +5,7 @@ var strawberries;
 var myPlatforms;
 var player = {};
 var playerPosition;
+var scaleX = false;
 
 var playState = {
     
@@ -83,7 +84,7 @@ var playState = {
 
         //player.animations.add('left', [0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19], 30, true);
         //player.animations.add('right', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
-        player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 29, 30, 31], 30, true);
+        player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 30, true);
         player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 30, true);
 
 
@@ -138,7 +139,10 @@ var playState = {
         if (cursors.left.isDown)
         {
             //  Move to the left
-
+            if (scaleX == true) {
+                player.scale.x *= -1;
+                scaleX = false;
+            }
             player.body.velocity.x = -250;
             player.animations.play('left');
             movementDirection = "left";
@@ -146,7 +150,10 @@ var playState = {
         else if (cursors.right.isDown)
         {
             //  Move to the right
-            player.scale.x *= -1;
+            if (scaleX == false) {
+                player.scale.x *= -1;
+                scaleX = true;
+            }
             player.body.velocity.x = 250;
             player.animations.play('right');
             movementDirection = "right";
@@ -184,7 +191,6 @@ var playState = {
     render: function() {
         //Счетчик FPS
 	   game.debug.text(game.time.fps, 100, 104, "#000000");
-        game.debug.text(player.test, 100, 124, "#000000");
     }
     
 };
