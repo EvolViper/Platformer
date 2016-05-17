@@ -164,7 +164,7 @@ var playState = {
                 scaleX = false;
             }
             player.body.velocity.x = -250;
-            player.animations.play('left');
+            if (stop == true) player.animations.play('left');
             movementDirection = "left";
         }
         else if (cursors.right.isDown)
@@ -175,17 +175,17 @@ var playState = {
                 scaleX = true;
             }
             player.body.velocity.x = 250;
-            player.animations.play('right');
+            if (stop == true) player.animations.play('right');
             movementDirection = "right";
             
         }
         
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
           
            changeTexture();
            player.animations.play('death');
            stop = false;
-            game.time.events.add(700, afterDeath, this);
+           game.time.events.add(700, afterDeath, this);
            
             
         }
