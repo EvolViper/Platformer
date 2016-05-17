@@ -6,6 +6,7 @@ var myPlatforms;
 var player = {};
 var playerPosition;
 var scaleX = false;
+var enemies;
 
 var playState = {
     
@@ -71,26 +72,31 @@ var playState = {
         platform1 = myPlatforms.create(2100, 300, "platform1");
         platform1.body.immovable = true;
 
-
+        //Создание игрока
 
         //player = game.add.sprite(900, 500, 'monster');
         player = game.add.sprite(900, 500, 'mushroom');
         player.anchor.setTo(.5,.5);
-        player.test = 242;
         game.physics.arcade.enable(player);
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 300;
-        player.body.setSize(200, 190);
+        player.body.setSize(100, 190);
         player.body.collideWorldBounds = true;
 
         //player.animations.add('left', [0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19], 30, true);
         //player.animations.add('right', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
-        player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
-        player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+        player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+        player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 
 
         stars = game.add.group();
         stars.enableBody = true;
+        
+        //Создание врагов
+        enemies = game.add.group();
+        enemy1 = new EnemyMushroom(1000, 400);
+        enemy2 = new EnemyMonster(1200, 400);
+        
 
         for (var i = 0; i < 24; i++)
         {
@@ -126,6 +132,8 @@ var playState = {
     update: function () {
         
         game.physics.arcade.collide(player, platforms);
+        game.physics.arcade.collide(enemies, platforms);
+        game.physics.arcade.collide(player, enemies);
         game.physics.arcade.collide(player, myPlatforms);
         game.physics.arcade.collide(stars, myPlatforms);
         game.physics.arcade.collide(strawberries, myPlatforms);
@@ -135,7 +143,9 @@ var playState = {
         game.physics.arcade.overlap(player, strawberries, collect, null, this);
 
         player.body.velocity.x = 0;
-
+        
+        enemy1.enemy.animations.play("move");
+        enemy2.enemy.animations.play("move");
 
         if (cursors.left.isDown)
         {
@@ -175,17 +185,19 @@ var playState = {
 
 
         //Движение камеры
+        
+        game.camera.follow(player);
 
-        if (player.position.x > playerPosition && player.position.x > 600) {
+       /* if (player.position.x > playerPosition && player.position.x > 600) {
             game.camera.x += 4;
         }
 
         else if (player.position.x < playerPosition && player.position.x < game.world.width - 900) {
             game.camera.x -= 4;
-        }
+        }*/
 
        playerPosition = player.position.x;
-       console.log(playerPosition);
+      
 
         },
     
@@ -202,4 +214,31 @@ function collect (player, trophy) {
     player.loadTexture("monster", 0, false);
     score += 30;
     scoreText.text = 'Score: ' + score;
-};
+}
+
+//Конструктор врагов
+
+function EnemyMushroom(x, y) {
+        this.enemy = enemies.create(x, y, "mushroom");
+        game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
+        this.enemy.body.gravity.y = 300;
+        this.enemy.body.velocity.x = -50;
+        this.enemy.body.collideWorldBounds = true;
+        
+    
+        this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+    
+}
+
+function EnemyMonster(x, y) {
+        this.enemy = enemies.create(x, y, "monster");
+        game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
+        this.enemy.body.gravity.y = 300;
+        this.enemy.body.velocity.x = 100;
+        this.enemy.body.collideWorldBounds = true;
+        
+    
+        this.enemy.animations.add("move", [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
+    
+    }
+
