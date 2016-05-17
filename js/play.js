@@ -7,6 +7,8 @@ var player = {};
 var playerPosition;
 var scaleX = false;
 var enemies;
+var stop = true;
+
 
 var playState = {
     
@@ -82,13 +84,15 @@ var playState = {
         player.body.gravity.y = 300;
         player.body.setSize(100, 190);
         player.body.collideWorldBounds = true;
+        
+        
 
-        //player.animations.add('left', [0, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19], 30, true);
-        //player.animations.add('right', [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
+
         player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
         player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+        
 
-
+        
         stars = game.add.group();
         stars.enableBody = true;
         
@@ -127,6 +131,7 @@ var playState = {
         }
 
         cursors = game.input.keyboard.createCursorKeys();
+        
     },
     
     update: function () {
@@ -141,8 +146,12 @@ var playState = {
         game.physics.arcade.collide(strawberries, platforms);
         game.physics.arcade.overlap(player, stars, collect, null, this);
         game.physics.arcade.overlap(player, strawberries, collect, null, this);
-
+        
+        
         player.body.velocity.x = 0;
+        
+        
+        
         
         enemy1.enemy.animations.play("move");
         enemy2.enemy.animations.play("move");
@@ -168,36 +177,38 @@ var playState = {
             player.body.velocity.x = 250;
             player.animations.play('right');
             movementDirection = "right";
+            
         }
-        else {
+        
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+          
+           changeTexture();
+           player.animations.play('death');
+           game.time.events.add(700, afterDeath, this);
+            
+        }
+       
+      /* else {
             player.animations.stop();
-            //if (movementDirection == "right") player.frame = 26;
-            //else player.frame = 6;
-            if (movementDirection == "right") player.frame = 0;
-            else player.frame = 0;
-        }
+            player.frame = 0;
+    
+        } */
+        
 
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.body.velocity.y = -450;
+            
 
         }
+        
+        
+        
 
 
         //Движение камеры
         
         game.camera.follow(player);
-
-       /* if (player.position.x > playerPosition && player.position.x > 600) {
-            game.camera.x += 4;
-        }
-
-        else if (player.position.x < playerPosition && player.position.x < game.world.width - 900) {
-            game.camera.x -= 4;
-        }*/
-
-       playerPosition = player.position.x;
-      
 
         },
     
@@ -211,7 +222,6 @@ var playState = {
 function collect (player, trophy) {
     // Removes the trophy from the screen
     trophy.kill();
-    player.loadTexture("monster", 0, false);
     score += 30;
     scoreText.text = 'Score: ' + score;
 }
@@ -239,6 +249,20 @@ function EnemyMonster(x, y) {
         
     
         this.enemy.animations.add("move", [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
+        
     
     }
 
+function changeTexture() {
+    player.loadTexture("mushroom_death", 0, false);
+    player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 45, true);
+    
+    
+}
+
+function afterDeath() {
+    player.animations.stop();   
+    player.loadTexture("mushroom", 0, false);
+    player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+    player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+}

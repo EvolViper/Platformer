@@ -19,6 +19,7 @@ var loadState = {
         game.load.image('groundSprite', 'assets/ground2.png');
         game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
         game.load.spritesheet('mushroom', 'assets/mushroom_move.png', 143, 200, 32);
+        game.load.spritesheet('mushroom_death', 'assets/mushroom_death.png', 238, 200, 22);
     },
     
     create: function() {
