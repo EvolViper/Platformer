@@ -186,7 +186,6 @@ var playState = {
            changeTexture();
            player.animations.play('death');
            stop = false;
-           
             
         }
        
@@ -233,8 +232,7 @@ function collect (player, trophy) {
 
 function killEnemy (player, enemy) {
     if (stop == false) enemy.kill();
-    score += 30;
-    scoreText.text = 'Score: ' + score;
+    
 }
 
 //Конструктор врагов
