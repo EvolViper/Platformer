@@ -1,8 +1,9 @@
 var bootState = {
     init: function() {
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.scaleMode = Phaser.ScaleManager.NO_SCALE;
         game.scale.pageAlignVertically = true;
         game.scale.pageAlignHorizontally = true;
+        game.scale.refresh();
          
     },
     

@@ -1,10 +1,14 @@
 var winW = document.body.offsetWidth;           
 var winH = window.innerHeight; 
+if (window.innerHeight < 899) winH = window.innerHeight;
+else winH = 900;
+if (window.innerWidth < 1599) winW = window.innerWidth;
+else winW = 1600;
 console.log(winH);
 console.log(winW);
 
-//var game = new Phaser.Game(winW, winH, Phaser.AUTO, "container")
-var game = new Phaser.Game(1600, 900, Phaser.AUTO, "container")
+var game = new Phaser.Game(winW, winH, Phaser.AUTO, "container")
+//var game = new Phaser.Game(1600, 900, Phaser.AUTO, "container")
 
 game.state.add("boot", bootState);
 game.state.add("load", loadState);
