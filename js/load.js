@@ -1,8 +1,8 @@
 var loadState = {
     preload: function() {
-        game.stage.backgroundColor = "#2A4480";
+        game.stage.backgroundColor = "#15171C";
         
-        var loadingLabels = game.add.text(80, 150, "loading...", {font: "30px Courier", fill: "#ffffff"});
+        var loadingLabels = game.add.text(800, 350, "LOADING...", {font: "30px Courier", fill: "#ffffff"});
         var loadingBar = game.add.sprite(game.world.centerX, game.world.centerY, "loadBar");
         loadingBar.anchor.setTo(0.5);
         game.load.setPreloadSprite(loadingBar);
