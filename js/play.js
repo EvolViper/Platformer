@@ -17,9 +17,8 @@ var playState = {
         game.time.advancedTiming = true;
 
         //Создание игрового мира 
-        game.world.setBounds(0, 0, 4800, 900);
+        game.world.setBounds(0, 0, 4800, 2000);
         game.scale.leaveFullScreen.add(onLeaveFullScreen, this);
-        game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         //game.scale.refresh();
         game.input.onDown.add(goFull, this);
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -28,15 +27,15 @@ var playState = {
 
         for (var i = 0, stage = 0; i < 3; i++) {
 
-            game.add.sprite(0 + stage, 0, 'background');
+            game.add.sprite(0 + stage, 100, 'background');
             stage += 1600;
 
         }
 
 
 
-        game.add.sprite(0, 0, 'background');
-        game.add.sprite(1600, 0, 'background');
+        //game.add.sprite(0, 0, 'background');
+        game.add.sprite(0, 100, 'background');
         game.add.sprite(0, -5, "tree");
         game.add.sprite(620, 230, "tree");
         game.add.sprite(20, 470, "tree");
@@ -51,7 +50,7 @@ var playState = {
 
         platforms = game.add.group();
         platforms.enableBody = true;
-        var ground = platforms.create(0, 840, 'ground');
+        var ground = platforms.create(0, 1000, 'ground');
         ground.scale.setTo(16, 2);
         ground.body.immovable = true;
 
@@ -59,7 +58,7 @@ var playState = {
 
 
         for (var i = 0, groundPosition = 0; i < 90; i++) {
-            game.add.sprite(-3 + groundPosition, 838, "groundSprite");
+            game.add.sprite(-3 + groundPosition, 1000, "groundSprite");
             groundPosition += 109;
 
         }
@@ -68,7 +67,7 @@ var playState = {
 
         myPlatforms = game.add.group();
         myPlatforms.enableBody = true;
-        var platform1 = myPlatforms.create(500, 600, "platform2");
+        var platform1 = myPlatforms.create(500, 700, "platform2");
         platform1.body.immovable = true;
         platform1 = myPlatforms.create(-150, 350, "platform2");
         platform1.body.immovable = true;
@@ -183,7 +182,8 @@ var playState = {
         //Движение камеры
         
         game.camera.follow(player);
-
+        //game.camera.deadzone = new Phaser.Rectangle(0, 0, 1000, 1000);
+        //game.camera.setPosition(100, 1200);
         },
     
     render: function() {
