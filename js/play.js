@@ -18,6 +18,9 @@ var playState = {
 
         //Создание игрового мира 
         game.world.setBounds(0, 0, 4800, 900);
+        game.scale.leaveFullScreen.add(onLeaveFullScreen, this);
+        game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+        //game.scale.refresh();
         game.input.onDown.add(goFull, this);
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -243,5 +246,11 @@ function afterDeath() {
 }
 
 function goFull() {
+    game.scale.refresh();
     game.scale.startFullScreen(false);
+    
+}
+
+function onLeaveFullScreen() {
+    game.scale.refresh();
 }
