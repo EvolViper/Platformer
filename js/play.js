@@ -11,12 +11,12 @@ var stop = true;
 
 
 var playState = {
-    
+
     create: function() {
             //Для счетчика FPS
         game.time.advancedTiming = true;
 
-        //Создание игрового мира 
+        //Создание игрового мира
         game.world.setBounds(0, 0, 4800, 2000);
         game.scale.leaveFullScreen.add(onLeaveFullScreen, this);
         //game.scale.refresh();
@@ -26,12 +26,9 @@ var playState = {
         //Добавление фона
 
         for (var i = 0, stage = 0; i < 3; i++) {
-
             game.add.sprite(0 + stage, 100, 'background');
             stage += 1600;
-
-        }
-
+        };
 
 
         //game.add.sprite(0, 0, 'background');
@@ -60,8 +57,7 @@ var playState = {
         for (var i = 0, groundPosition = 0; i < 90; i++) {
             game.add.sprite(-3 + groundPosition, 1000, "groundSprite");
             groundPosition += 109;
-
-        }
+        };
 
         //Создание платформ
 
@@ -86,28 +82,28 @@ var playState = {
         player.body.gravity.y = 300;
         player.body.setSize(100, 190);
         player.body.collideWorldBounds = true;
-        
-        
+
+
 
 
         player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
         player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
-    
-        
+
+
         //Создание врагов
         enemies = game.add.group();
         enemy1 = new EnemyMushroom(1000, 400);
         enemy2 = new EnemyMonster(1200, 400);
-        
+
 
         scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
         cursors = game.input.keyboard.createCursorKeys();
-        
+
     },
-    
+
     update: function () {
-        
+
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(enemies, platforms);
         game.physics.arcade.collide(player, enemies, killEnemy, null, this);
@@ -116,13 +112,13 @@ var playState = {
         //game.physics.arcade.overlap(player, stars, collect, null, this);
         //game.physics.arcade.overlap(player, strawberries, collect, null, this);
         //game.physics.arcade.overlap(player, enemies, killEnemy, null, this);
-        
-        
+
+
         player.body.velocity.x = 0;
-        
-        
-        
-        
+
+
+
+
         enemy1.enemy.animations.play("move");
         enemy2.enemy.animations.play("move");
 
@@ -147,50 +143,50 @@ var playState = {
             player.body.velocity.x = 250;
             if (stop == true) player.animations.play('right');
             movementDirection = "right";
-            
-        }
-        
+
+        };
+
         if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-          
+
            changeTexture();
            player.animations.play('death');
            stop = false;
-            
-        }
-       
+
+        };
+
       /* else {
             player.animations.stop();
             player.frame = 0;
-    
+
         } */
-        
+
 
         if (cursors.up.isDown && player.body.touching.down)
         {
             player.body.velocity.y = -450;
-            
 
-        }
-    
+
+        };
+
         if (player.body.velocity.x == 0 && stop) {
             player.animations.stop();
             player.frame = 0;
-        }
-            
+        };
+
 
 
         //Движение камеры
-        
+
         game.camera.follow(player);
         //game.camera.deadzone = new Phaser.Rectangle(0, 0, 1000, 1000);
         //game.camera.setPosition(100, 1200);
-        },
-    
+    },
+
     render: function() {
         //Счетчик FPS
 	   game.debug.text(game.time.fps, 100, 104, "#000000");
     }
-    
+
 };
 
 function collect (player, trophy) {
@@ -198,12 +194,11 @@ function collect (player, trophy) {
     trophy.kill();
     score += 30;
     scoreText.text = 'Score: ' + score;
-}
+};
 
 function killEnemy (player, enemy) {
     if (stop == false) enemy.kill();
-    
-}
+};
 
 //Конструктор врагов
 
@@ -213,11 +208,9 @@ function EnemyMushroom(x, y) {
         this.enemy.body.gravity.y = 300;
         this.enemy.body.velocity.x = -50;
         this.enemy.body.collideWorldBounds = true;
-        
-    
+
         this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
-    
-}
+};
 
 function EnemyMonster(x, y) {
         this.enemy = enemies.create(x, y, "monster");
@@ -226,16 +219,12 @@ function EnemyMonster(x, y) {
         this.enemy.body.velocity.x = 100;
         this.enemy.body.collideWorldBounds = true;
         this.enemy.animations.add("move", [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38], 30, true);
-        
-    
-    }
+};
 
 function changeTexture() {
     player.loadTexture("mushroom_death", 0, false);
     player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
-    
-    
-}
+};
 
 function afterDeath() {
     player.animations.stop();
@@ -243,14 +232,13 @@ function afterDeath() {
     player.loadTexture("mushroom", 0, false);
     player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
     player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
-}
+};
 
 function goFull() {
     game.scale.refresh();
     game.scale.startFullScreen(false);
-    
-}
+};
 
 function onLeaveFullScreen() {
     game.scale.refresh();
-}
+};
