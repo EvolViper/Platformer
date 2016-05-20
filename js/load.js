@@ -7,15 +7,12 @@ var loadState = {
         loadingBar.anchor.setTo(0.5);
         game.load.setPreloadSprite(loadingBar);
         
-        game.load.image('sky', 'assets/sky.png');
         game.load.image('background', 'assets/background.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('platform1', 'assets/platform1.png');
         game.load.image('platform2', 'assets/platform2.png');
         game.load.image('platform3', 'assets/platform3.png');
-        game.load.image('star', 'assets/star.png');
         game.load.image('tree', 'assets/tree.png');
-        game.load.image('strawberry', 'assets/strawberry.png');
         game.load.image('groundSprite', 'assets/ground2.png');
         game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
         game.load.spritesheet('mushroom', 'assets/mushroom_move.png', 143, 200, 32);

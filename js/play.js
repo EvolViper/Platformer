@@ -18,7 +18,7 @@ var playState = {
 
         //Создание игрового мира 
         game.world.setBounds(0, 0, 4800, 900);
-
+        game.input.onDown.add(goFull, this);
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //Добавление фона
@@ -90,11 +90,7 @@ var playState = {
 
         player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
         player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
-        
-
-        
-        stars = game.add.group();
-        stars.enableBody = true;
+    
         
         //Создание врагов
         enemies = game.add.group();
@@ -102,33 +98,7 @@ var playState = {
         enemy2 = new EnemyMonster(1200, 400);
         
 
-        for (var i = 0; i < 24; i++)
-        {
-            //  Create a star inside of the 'stars' group
-            var star = stars.create(i * 150, 0, 'star');
-
-            //  Let gravity do its thing
-            star.body.gravity.y = 200;
-
-            //  This just gives each star a slightly random bounce value
-            star.body.bounce.y = 0.7 + Math.random() * 0.2;
-        }
         scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
-        strawberries = game.add.group();
-        strawberries.enableBody = true;
-
-        for (var i = 0; i < 3; i++)
-        {
-            //  Create a star inside of the 'stars' group
-            var strawberry = strawberries.create(i * (Math.random() * 700), 0, 'strawberry');
-
-            //  Let gravity do its thing
-            strawberry.body.gravity.y = 200;
-
-            //  This just gives each star a slightly random bounce value
-            strawberry.body.bounce.y = 0.3;
-        }
 
         cursors = game.input.keyboard.createCursorKeys();
         
@@ -140,12 +110,9 @@ var playState = {
         game.physics.arcade.collide(enemies, platforms);
         game.physics.arcade.collide(player, enemies, killEnemy, null, this);
         game.physics.arcade.collide(player, myPlatforms);
-        game.physics.arcade.collide(stars, myPlatforms);
-        game.physics.arcade.collide(strawberries, myPlatforms);
-        game.physics.arcade.collide(stars, platforms);
-        game.physics.arcade.collide(strawberries, platforms);
-        game.physics.arcade.overlap(player, stars, collect, null, this);
-        game.physics.arcade.overlap(player, strawberries, collect, null, this);
+        game.physics.arcade.collide(strawberries, myPlatforms);;
+        //game.physics.arcade.overlap(player, stars, collect, null, this);
+        //game.physics.arcade.overlap(player, strawberries, collect, null, this);
         //game.physics.arcade.overlap(player, enemies, killEnemy, null, this);
         
         
@@ -273,4 +240,8 @@ function afterDeath() {
     player.loadTexture("mushroom", 0, false);
     player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
     player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+}
+
+function goFull() {
+    game.scale.startFullScreen(false);
 }
