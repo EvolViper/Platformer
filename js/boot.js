@@ -7,6 +7,7 @@ var bootState = {
 
     preload: function() {
         game.load.image('loadBar', 'assets/progress_bar.png');
+        game.load.image('logo', 'assets/melolontha.png');
     },
 
     create: function() {
