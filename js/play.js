@@ -8,6 +8,7 @@ var playerPosition;
 var scaleX = false;
 var enemies;
 var stop = true;
+var music;
 
 
 var playState = {
@@ -18,7 +19,6 @@ var playState = {
 
 		//Создание игрового мира
 		game.world.setBounds(0, 0, 4800, 2000);
-		// game.scale.refresh();
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		//Добавление фона
@@ -27,6 +27,11 @@ var playState = {
 			game.add.sprite(0 + stage, 100, 'background');
 			stage += 1600;
 		};
+
+		//Добавление музыки
+		music = game.add.audio ('magntron');
+		music.play();
+
 
 
 		//game.add.sprite(0, 0, 'background');
@@ -125,36 +130,30 @@ var playState = {
 		enemy1.enemy.animations.play("move");
 		enemy2.enemy.animations.play("move");
 
-		if (cursors.left.isDown)
-		{
+		if (cursors.left.isDown) {
 			//  Move to the left
 			if (scaleX == true) {
 				player.scale.x *= -1;
 				scaleX = false;
-			}
+			};
 			player.body.velocity.x = -250;
 			if (stop == true) player.animations.play('left');
 			movementDirection = "left";
-		}
-		else if (cursors.right.isDown)
-		{
+		} else if (cursors.right.isDown) {
 			//  Move to the right
 			if (scaleX == false) {
 				player.scale.x *= -1;
 				scaleX = true;
-			}
+			};
 			player.body.velocity.x = 250;
 			if (stop == true) player.animations.play('right');
 			movementDirection = "right";
-
 		};
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-
 		   changeTexture();
 		   player.animations.play('death');
 		   stop = false;
-
 		};
 
 	  /* else {

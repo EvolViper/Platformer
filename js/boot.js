@@ -8,7 +8,7 @@ var bootState = {
     },
 
     preload: function() {
-        game.load.image('loadBar', 'assets/platform3.png');
+        game.load.image('loadBar', 'assets/progress_bar.png');
     },
 
     create: function() {
