@@ -8,6 +8,7 @@ var playerPosition;
 var scaleX = false;
 var enemies;
 var stop = true;
+var music;
 
 
 var playState = {
@@ -31,6 +32,10 @@ var playState = {
             stage += 1600;
 
         }
+
+        //Добавление музыки
+        music = game.add.audio ('magntron');
+        music.play();
 
 
 

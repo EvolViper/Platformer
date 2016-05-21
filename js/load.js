@@ -2,11 +2,12 @@ var loadState = {
     preload: function() {
         game.stage.backgroundColor = "#15171C";
         
-        var loadingLabels = game.add.text(800, 350, "LOADING...", {font: "30px Courier", fill: "#ffffff"});
+        var loadingLabels = game.add.text("LOADING...", {font: "30px Courier", align: "center", fill: "#ffffff"});
         var loadingBar = game.add.sprite(game.world.centerX, game.world.centerY, "loadBar");
         loadingBar.anchor.setTo(0.5);
         game.load.setPreloadSprite(loadingBar);
         
+        game.load.audio ('magntron', 'assets/magntron.mp3', 'assets/djgriffin.wav');
         game.load.image('background', 'assets/background.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('platform1', 'assets/platform1.png');
@@ -17,6 +18,7 @@ var loadState = {
         game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
         game.load.spritesheet('mushroom', 'assets/mushroom_move.png', 143, 200, 32);
         game.load.spritesheet('mushroom_death', 'assets/mushroom_death.png', 238, 200, 22);
+
     },
     
     create: function() {

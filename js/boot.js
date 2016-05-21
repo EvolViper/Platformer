@@ -9,7 +9,8 @@ var bootState = {
     },
     
     preload: function() {
-        game.load.image('loadBar', 'assets/progress_bar.png');    
+        game.load.image('loadBar', 'assets/progress_bar.png');  
+        
     },
     
     create: function() {
