@@ -1,7 +1,6 @@
 var score = 0;
 var scoreText;
 var movementDirection;
-var strawberries;
 var myPlatforms;
 var player = {};
 var playerPosition;
@@ -116,10 +115,6 @@ var playState = {
 		game.physics.arcade.collide(enemies, platforms);
 		game.physics.arcade.collide(player, enemies, killEnemy, null, this);
 		game.physics.arcade.collide(player, myPlatforms);
-		game.physics.arcade.collide(strawberries, myPlatforms);;
-		//game.physics.arcade.overlap(player, stars, collect, null, this);
-		//game.physics.arcade.overlap(player, strawberries, collect, null, this);
-		//game.physics.arcade.overlap(player, enemies, killEnemy, null, this);
 
 
 		player.body.velocity.x = 0;
