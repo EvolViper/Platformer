@@ -14,7 +14,7 @@ var music;
 var playState = {
 
 	create: function() {
-			//Для счетчика FPS
+        //Для счетчика FPS
 		game.time.advancedTiming = true;
 
 		//Создание игрового мира
