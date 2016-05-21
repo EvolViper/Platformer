@@ -1,7 +1,8 @@
 var menuState = {
 
     create: function() {
-    	var nameLabel = game.add.text(game.world.centerX, 400, "START", {font: "30px Proxima Nova", fill: "#ffffff"});
+    	var nameLogo = game.add.image(750, 350, 'logo', 'assets/melolontha.png')
+        var nameLabel = game.add.text(750, game.world.height - 550, "START", {font: "30px Proxima Nova", fill: "#ffffff"});
         var wkey = game.input.keyboard.addKey(Phaser.Keyboard.W);
 
         wkey.onDown.addOnce(this.start, this);

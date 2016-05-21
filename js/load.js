@@ -2,11 +2,12 @@ var loadState = {
     preload: function() {
         game.stage.backgroundColor = "#15171C";
 
+        var loadingLabels = game.add.text("LOADING...", {font: "30px Courier", align: "center", fill: "#ffffff"});
         var loadingBar = game.add.sprite(game.world.centerX, game.world.centerY, "loadBar");
         loadingBar.anchor.setTo(0.5);
         game.load.setPreloadSprite(loadingBar);
 
-        game.load.audio ('magntron', 'assets/magntron.mp3');
+        game.load.audio ('magntron', 'assets/magntron.mp3', 'assets/djgriffin.wav');
         game.load.image('background', 'assets/background.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('platform1', 'assets/platform1.png');
