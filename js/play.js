@@ -96,6 +96,10 @@ var playState = {
 		enemies = game.add.group();
 		enemy1 = new EnemyMushroom(1000, 400);
 		enemy2 = new EnemyMonster(1200, 400);
+        
+        enemy3 = game.add.sprite(1300, 170, "monster_attack");
+        enemy3.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 26, true);
+        enemy3.animations.play('monster_hit');
 
 
 		scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
