@@ -217,7 +217,7 @@ function EnemyMonster(x, y) {
     this.enemy.anchor.setTo(.5,.5)
     this.enemy.scale.x *= -1;
     game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-    this.enemy.body.setSize(236, 220);
+    this.enemy.body.setSize(236, 225);
     this.enemy.body.gravity.y = 300;
 	this.enemy.body.velocity.x = 200;
 	this.enemy.body.collideWorldBounds = true;
