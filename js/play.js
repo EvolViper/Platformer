@@ -29,7 +29,7 @@ var playState = {
 
 		//Добавление музыки
 		music = game.add.audio ('magntron');
-		music.play();
+		//killmusic.play();
 
 
 
@@ -82,7 +82,7 @@ var playState = {
 		game.physics.arcade.enable(player);
 		player.body.bounce.y = 0.2;
 		player.body.gravity.y = 300;
-		player.body.setSize(100, 190);
+		player.body.setSize(100, 180);
 		player.body.collideWorldBounds = true;
 
 
@@ -147,7 +147,7 @@ var playState = {
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
 		   changeTexture();
-		   player.animations.play('death');
+		   player.animations.play('attack');
 		   stop = false;
 		};
 
@@ -181,7 +181,8 @@ var playState = {
 
 	render: function() {
 		//Счетчик FPS
-	   game.debug.text(game.time.fps, 100, 104, "#000000");
+        game.debug.text(game.time.fps, 100, 104, "#000000");
+        //game.debug.body(player);
 	}
 
 };
@@ -194,7 +195,10 @@ function collect (player, trophy) {
 };
 
 function killEnemy (player, enemy) {
-	if (stop == false) enemy.kill();
+	if (stop == false) game.time.events.add(300, function() {
+        enemy.kill();
+    }, this);
+    
 };
 
 //Конструктор врагов
@@ -219,8 +223,9 @@ function EnemyMonster(x, y) {
 };
 
 function changeTexture() {
-	player.loadTexture("mushroom_death", 0, false);
-	player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
+	player.loadTexture("mushroom_attack", 0, false);
+	//player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
+    player.animations.add('attack', [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 14, 0, 1, 2, 3, 4], 30, false).onComplete.add(afterDeath);
 };
 
 function afterDeath() {

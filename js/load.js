@@ -20,6 +20,7 @@ var loadState = {
         game.load.spritesheet('monster', 'assets/sprites32.png', 214, 235);
         game.load.spritesheet('mushroom', 'assets/mushroom_move.png', 143, 200, 32);
         game.load.spritesheet('mushroom_death', 'assets/mushroom_death.png', 238, 200, 22);
+        game.load.spritesheet('mushroom_attack', 'assets/mushroom_attack.png', 190, 200, 15);
     },
 
     create: function() {
