@@ -8,16 +8,11 @@ var scaleX = false;
 var enemies;
 var stop = true;
 var music;
-//var kit;
-var cloud;
 var cursors;
-var mountainsBack;
-var mountainsMid;
 var background = {
 	objects: new Array(),
 	speeds: new Array(),
 };
-
 
 var playState = {
 
@@ -52,10 +47,11 @@ var playState = {
 		game.add.sprite(30, 40, 'tree');
 		game.add.sprite(1400, 40, 'tree');
 		game.add.sprite(1200, 40, 'tree');
-		var kit = game.add.sprite(2160, 230, 'kit');
+		var kit = game.add.sprite(2160, 200, 'kit');
 
 
-		game.add.tween(kit).to({ y:2160 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+		var kitTween = game.add.tween(kit);
+		kitTween.to({y:240}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
 
 
@@ -207,8 +203,7 @@ var playState = {
 		game.debug.text(game.time.fps, 100, 104, "#ffffff");
 		//game.debug.body(enemy1);
 		//game.debug.body(player);
-	};
-
+	}
 };
 
 
@@ -276,7 +271,7 @@ function backgroundParallax(course) {
 	};
 
 	// TODO:
-	// привыязываться не к нажатиям на клавиши, а к положению камеры
+	// привязываться не к нажатиям на клавиши, а к положению камеры
 	for (var i=0,m=background.objects.length;i<m;i++) {
 		background.objects[i].tilePosition.x += background.speeds[i] * (course ? -1 : 1);
 	};
