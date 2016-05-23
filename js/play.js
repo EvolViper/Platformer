@@ -18,7 +18,7 @@ var mountainsMid;
 var playState = {
 
 	create: function() {
-        //Для счетчика FPS
+		//Для счетчика FPS
 		game.time.advancedTiming = true;
 
 		//Создание игрового мира
@@ -38,26 +38,29 @@ var playState = {
 
 
 		//параллакс облака
-		cloud = game.add.tileSprite(0,
-		400,
-		5000,
-		game.cache.getImage('cloud3').height,
-		'cloud3'
-	);
-		
+		cloud = game.add.tileSprite(
+			0,
+			400,
+			5000,
+			game.cache.getImage('cloud3').height,
+			'cloud3'
+		);
+
 		//параллакс гор
-		mountainsBack = game.add.tileSprite(0, 
-		game.height - game.cache.getImage('mountains-back').height, 
-		5000, 
-		game.cache.getImage('mountains-back').height, 
-		'mountains-back'
-    );
-		mountainsMid = game.add.tileSprite(0, 
-		game.height - game.cache.getImage('mountains-mid').height, 
-		5000, 
-		game.cache.getImage('mountains-mid').height, 
-		'mountains-mid'
-    );
+		mountainsBack = game.add.tileSprite(
+			0,
+			game.height - game.cache.getImage('mountains-back').height,
+			5000,
+			game.cache.getImage('mountains-back').height,
+			'mountains-back'
+		);
+		mountainsMid = game.add.tileSprite(
+			0,
+			game.height - game.cache.getImage('mountains-mid').height,
+			5000,
+			game.cache.getImage('mountains-mid').height,
+			'mountains-mid'
+		);
 		cursors = game.input.keyboard.createCursorKeys();
 
 
@@ -121,21 +124,21 @@ var playState = {
 		enemies = game.add.group();
 		enemy1 = new EnemyMushroom(1000, 400);
 		enemy2 = new EnemyMonster(1200, 400);
-        
-        //Тест анимации
-        enemy3 = game.add.sprite(1200, 140, "monster_attack");
-        enemy3.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 26, true);
-        enemy3.animations.play('monster_hit');
-        
-        //Тест анимации
-        enemy4 = game.add.sprite(1400, 170, "monster");
-        enemy4.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
-        enemy4.animations.play('monster_hit');
-        
-        //Тест анимации
-        enemy5 = game.add.sprite(1600, 170, "monster2");
-        enemy5.animations.add("monster_hit2", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
-        enemy5.animations.play('monster_hit2');
+
+		//Тест анимации
+		enemy3 = game.add.sprite(1200, 140, "monster_attack");
+		enemy3.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 26, true);
+		enemy3.animations.play('monster_hit');
+
+		//Тест анимации
+		enemy4 = game.add.sprite(1400, 170, "monster");
+		enemy4.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+		enemy4.animations.play('monster_hit');
+
+		//Тест анимации
+		enemy5 = game.add.sprite(1600, 170, "monster2");
+		enemy5.animations.add("monster_hit2", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+		enemy5.animations.play('monster_hit2');
 
 
 		//scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -150,17 +153,17 @@ var playState = {
 
 	update: function () {
 
-			if (cursors.left.isDown)	{
-        		mountainsBack.tilePosition.x += 0.3;
-    		} else if (cursors.right.isDown)	{
-        		mountainsBack.tilePosition.x -= 0.3;
-			};
+		if (cursors.left.isDown)	{
+			mountainsBack.tilePosition.x += 0.3;
+		} else if (cursors.right.isDown)	{
+			mountainsBack.tilePosition.x -= 0.3;
+		};
 
-			if (cursors.left.isDown)	{
-        		mountainsMid.tilePosition.x += 0.6;
-    		} else if (cursors.right.isDown)	{
-        		mountainsMid.tilePosition.x -= 0.6;
-			};
+		if (cursors.left.isDown)	{
+			mountainsMid.tilePosition.x += 0.6;
+		} else if (cursors.right.isDown)	{
+			mountainsMid.tilePosition.x -= 0.6;
+		};
 
 		cloud.tilePosition.x -= 0.1;
 
@@ -232,9 +235,9 @@ var playState = {
 
 	render: function() {
 		//Счетчик FPS
-        game.debug.text(game.time.fps, 100, 104, "#ffffff");
-        //game.debug.body(enemy1);
-        //game.debug.body(player);
+		game.debug.text(game.time.fps, 100, 104, "#ffffff");
+		//game.debug.body(enemy1);
+		//game.debug.body(player);
 	}
 
 };
@@ -248,9 +251,9 @@ var playState = {
 
 function killEnemy (player, enemy) {
 	if (stop == false) game.time.events.add(300, function() {
-        enemy.kill();
-    }, this);
-    
+		enemy.kill();
+	}, this);
+
 };
 
 //Конструктор врагов
@@ -267,11 +270,11 @@ function EnemyMushroom(x, y) {
 
 function EnemyMonster(x, y) {
 	this.enemy = enemies.create(x, y, "monster");
-    this.enemy.anchor.setTo(.5,.5)
-    this.enemy.scale.x *= -1;
-    game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-    this.enemy.body.setSize(236, 225);
-    this.enemy.body.gravity.y = 300;
+	this.enemy.anchor.setTo(.5,.5)
+	this.enemy.scale.x *= -1;
+	game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
+	this.enemy.body.setSize(236, 225);
+	this.enemy.body.gravity.y = 300;
 	this.enemy.body.velocity.x = 200;
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
@@ -280,7 +283,7 @@ function EnemyMonster(x, y) {
 function changeTexture() {
 	player.loadTexture("mushroom_attack", 0, false);
 	//player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
-    player.animations.add('attack', [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 14, 0, 1, 2, 3, 4], 30, false).onComplete.add(afterDeath);
+	player.animations.add('attack', [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 14, 0, 1, 2, 3, 4], 30, false).onComplete.add(afterDeath);
 };
 
 function afterDeath() {
@@ -292,9 +295,9 @@ function afterDeath() {
 };
 
 function toogleFullScreen() {
-    if (game.scale.isFullScreen) {
-        game.scale.stopFullScreen();
-    } else {
-        game.scale.startFullScreen(false);
-    };
+	if (game.scale.isFullScreen) {
+		game.scale.stopFullScreen();
+	} else {
+		game.scale.startFullScreen(false);
+	};
 };
