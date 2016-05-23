@@ -8,6 +8,9 @@ var scaleX = false;
 var enemies;
 var stop = true;
 var music;
+var kit;
+var tilesprite;
+var cursors;
 
 
 var playState = {
@@ -32,16 +35,17 @@ var playState = {
 		//killmusic.play();
 
 
+		//parallax
+		tilesprite = game.add.tileSprite(0, 200, 5000, 111, 'cloud3');
+    	cursors = game.input.keyboard.createCursorKeys();
 
-		//game.add.sprite(0, 0, 'background');
+
+
 		game.add.sprite(0, 100, 'background');
-		game.add.sprite(0, -5, "tree");
-		game.add.sprite(620, 230, "tree");
-		game.add.sprite(20, 470, "tree");
-		game.add.sprite(120, 470, "tree");
-		game.add.sprite(1020, 470, "tree");
-		game.add.sprite(1400, 30, "tree");
-		game.add.sprite(1200, 30, "tree");
+		game.add.sprite(30, 40, 'tree');
+		game.add.sprite(1400, 40, 'tree');
+		game.add.sprite(1200, 40, 'tree');
+		game.add.sprite(2160, 230, 'kit');
 
 
 
@@ -67,7 +71,7 @@ var playState = {
 		myPlatforms.enableBody = true;
 		var platform1 = myPlatforms.create(500, 700, "platform2");
 		platform1.body.immovable = true;
-		platform1 = myPlatforms.create(-150, 350, "platform2");
+		platform1 = myPlatforms.create(-150, 400, "platform2");
 		platform1.body.immovable = true;
 		platform1 = myPlatforms.create(1200, 400, "platform3");
 		platform1.body.immovable = true;
@@ -125,6 +129,12 @@ var playState = {
 	},
 
 	update: function () {
+
+			if (cursors.left.isDown)	{
+        		tilesprite.tilePosition.x += 0.1;
+    		} else if (cursors.right.isDown)	{
+        		tilesprite.tilePosition.x -= 0.1;
+			};
 
 		game.physics.arcade.collide(player, platforms);
 		game.physics.arcade.collide(enemies, platforms);
@@ -194,7 +204,7 @@ var playState = {
 
 	render: function() {
 		//Счетчик FPS
-        game.debug.text(game.time.fps, 100, 104, "#000000");
+        game.debug.text(game.time.fps, 100, 104, "#ffffff");
         //game.debug.body(enemy1);
         //game.debug.body(player);
 	}
