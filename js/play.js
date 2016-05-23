@@ -13,6 +13,10 @@ var cloud;
 var cursors;
 var mountainsBack;
 var mountainsMid;
+var background = {
+	objects: new Array(),
+	speeds: new Array(),
+};
 
 
 var playState = {
@@ -26,42 +30,20 @@ var playState = {
 		game.world.setBounds(0, 0, 4800, 2000);
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		//Добавление фона
-
-		//for (var i = 0, stage = 0; i < 3; i++) {
-			//game.add.sprite(0 + stage, 100, 'background');
-			//stage += 1600;
-		//};
-
-		//Добавление музыки
+		// Добавление музыки
 		music = game.add.audio ('magntron');
-		//killmusic.play();
+		// killmusic.play();
 
 
-		//параллакс облака
-		cloud = game.add.tileSprite(
-			0,
-			400,
-			5000,
-			game.cache.getImage('cloud3').height,
-			'cloud3'
-		);
+		// облака
+		cloud = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
 
-		//параллакс гор
-		mountainsBack = game.add.tileSprite(
-			0,
-			game.height - game.cache.getImage('mountains-back').height,
-			5000,
-			game.cache.getImage('mountains-back').height,
-			'mountains-back'
-		);
-		mountainsMid = game.add.tileSprite(
-			0,
-			game.height - game.cache.getImage('mountains-mid').height,
-			5000,
-			game.cache.getImage('mountains-mid').height,
-			'mountains-mid'
-		);
+		// горы
+		background.objects.push(game.add.tileSprite(0, game.height - game.cache.getImage('mountains-back').height, 5000, game.cache.getImage('mountains-back').height, 'mountains-back'));
+		background.speeds.push(0.3);
+		background.objects.push(game.add.tileSprite(0, game.height - game.cache.getImage('mountains-mid').height, 5000, game.cache.getImage('mountains-mid').height,'mountains-mid'));
+		background.speeds.push(0.6);
+
 		cursors = game.input.keyboard.createCursorKeys();
 
 
@@ -126,7 +108,10 @@ var playState = {
 		//Создание врагов
 		enemies = game.add.group();
 		enemy1 = new EnemyMushroom(1000, 400);
+		enemy1.enemy.animations.play("move");
+
 		enemy2 = new EnemyMonster(1200, 400);
+		enemy2.enemy.animations.play("move");
 
 		//Тест анимации
 		enemy3 = game.add.sprite(1200, 140, "monster_attack");
@@ -155,53 +140,44 @@ var playState = {
 	},
 
 	update: function () {
+		player.body.velocity.x = 0;
 
-		if (cursors.left.isDown)	{
-			mountainsBack.tilePosition.x += 0.3;
-		} else if (cursors.right.isDown)	{
-			mountainsBack.tilePosition.x -= 0.3;
-		};
-
-		if (cursors.left.isDown)	{
-			mountainsMid.tilePosition.x += 0.6;
-		} else if (cursors.right.isDown)	{
-			mountainsMid.tilePosition.x -= 0.6;
-		};
-
+		// двигаем облака
 		cloud.tilePosition.x -= 0.1;
 
 		game.physics.arcade.collide(player, platforms);
-		game.physics.arcade.collide(enemies, platforms);
 		game.physics.arcade.collide(player, enemies, killEnemy, null, this);
 		game.physics.arcade.collide(player, myPlatforms);
-
-
-		player.body.velocity.x = 0;
-
-
-
-
-		enemy1.enemy.animations.play("move");
-		enemy2.enemy.animations.play("move");
+		game.physics.arcade.collide(enemies, platforms);
 
 		if (cursors.left.isDown) {
 			//  Move to the left
+
 			if (scaleX == true) {
 				player.scale.x *= -1;
 				scaleX = false;
 			};
 			player.body.velocity.x = -250;
-			if (stop == true) player.animations.play('left');
+			if (stop == true) {
+				player.animations.play('left');
+			};
 			movementDirection = "left";
+
+			backgroundParallax(false);
 		} else if (cursors.right.isDown) {
 			//  Move to the right
+
 			if (scaleX == false) {
 				player.scale.x *= -1;
 				scaleX = true;
 			};
 			player.body.velocity.x = 250;
-			if (stop == true) player.animations.play('right');
+			if (stop == true) {
+				player.animations.play('right');
+			};
 			movementDirection = "right";
+
+			backgroundParallax(true);
 		};
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
@@ -210,18 +186,9 @@ var playState = {
 		   stop = false;
 		};
 
-	  /* else {
-			player.animations.stop();
-			player.frame = 0;
 
-		} */
-
-
-		if (cursors.up.isDown && player.body.touching.down)
-		{
+		if (cursors.up.isDown && player.body.touching.down) {
 			player.body.velocity.y = -450;
-
-
 		};
 
 		if (player.body.velocity.x == 0 && stop) {
@@ -232,7 +199,6 @@ var playState = {
 
 
 		//Движение камеры
-
 		game.camera.follow(player);
 	},
 
@@ -245,12 +211,6 @@ var playState = {
 
 };
 
-//function collect (player, trophy) {
-	// Removes the trophy from the screen
-	//trophy.kill();
-	//score += 30;
-	//scoreText.text = 'Score: ' + score;
-//};
 
 function killEnemy (player, enemy) {
 	if (stop == false) game.time.events.add(300, function() {
@@ -259,8 +219,8 @@ function killEnemy (player, enemy) {
 
 };
 
-//Конструктор врагов
 
+//Конструктор врагов
 function EnemyMushroom(x, y) {
 	this.enemy = enemies.create(x, y, "mushroom");
 	game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
@@ -270,6 +230,7 @@ function EnemyMushroom(x, y) {
 
 	this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
 };
+
 
 function EnemyMonster(x, y) {
 	this.enemy = enemies.create(x, y, "monster");
@@ -283,11 +244,13 @@ function EnemyMonster(x, y) {
 	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
 };
 
+
 function changeTexture() {
 	player.loadTexture("mushroom_attack", 0, false);
-	//player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
+	// player.animations.add('death', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21], 40, false).onComplete.add(afterDeath);
 	player.animations.add('attack', [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14, 14, 0, 1, 2, 3, 4], 30, false).onComplete.add(afterDeath);
 };
+
 
 function afterDeath() {
 	player.animations.stop();
@@ -297,10 +260,24 @@ function afterDeath() {
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 };
 
+
 function toogleFullScreen() {
 	if (game.scale.isFullScreen) {
 		game.scale.stopFullScreen();
 	} else {
 		game.scale.startFullScreen(false);
+	};
+};
+
+
+function backgroundParallax(course) {
+	if (typeof(course) != "boolean") {
+		return null;
+	};
+
+	// TODO:
+	// привыязываться не к нажатиям на клавиши, а к положению камеры
+	for (var i=0,m=background.objects.length;i<m;i++) {
+		background.objects[i].tilePosition.x += background.speeds[i] * (course ? -1 : 1);
 	};
 };
