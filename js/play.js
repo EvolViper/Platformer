@@ -8,7 +8,7 @@ var scaleX = false;
 var enemies;
 var stop = true;
 var music;
-var kit;
+//var kit;
 var cloud;
 var cursors;
 var mountainsBack;
@@ -18,6 +18,7 @@ var mountainsMid;
 var playState = {
 
 	create: function() {
+		game.stage.backgroundColor = "#90D0F6";
 		//Для счетчика FPS
 		game.time.advancedTiming = true;
 
@@ -69,8 +70,10 @@ var playState = {
 		game.add.sprite(30, 40, 'tree');
 		game.add.sprite(1400, 40, 'tree');
 		game.add.sprite(1200, 40, 'tree');
-		game.add.sprite(2160, 230, 'kit');
+		var kit = game.add.sprite(2160, 230, 'kit');
 
+
+		game.add.tween(kit).to({ y:2160 }, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
 
 
@@ -238,7 +241,7 @@ var playState = {
 		game.debug.text(game.time.fps, 100, 104, "#ffffff");
 		//game.debug.body(enemy1);
 		//game.debug.body(player);
-	}
+	};
 
 };
 
