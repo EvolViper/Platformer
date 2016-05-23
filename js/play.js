@@ -1,5 +1,5 @@
-var score = 0;
-var scoreText;
+//var score = 0;
+//var scoreText;
 var movementDirection;
 var myPlatforms;
 var player = {};
@@ -9,8 +9,10 @@ var enemies;
 var stop = true;
 var music;
 var kit;
-var tilesprite;
+var cloud;
 var cursors;
+var mountainsBack;
+var mountainsMid;
 
 
 var playState = {
@@ -25,23 +27,42 @@ var playState = {
 
 		//Добавление фона
 
-		for (var i = 0, stage = 0; i < 3; i++) {
-			game.add.sprite(0 + stage, 100, 'background');
-			stage += 1600;
-		};
+		//for (var i = 0, stage = 0; i < 3; i++) {
+			//game.add.sprite(0 + stage, 100, 'background');
+			//stage += 1600;
+		//};
 
 		//Добавление музыки
 		music = game.add.audio ('magntron');
 		//killmusic.play();
 
 
-		//parallax
-		tilesprite = game.add.tileSprite(0, 200, 5000, 111, 'cloud3');
-    	cursors = game.input.keyboard.createCursorKeys();
+		//параллакс облака
+		cloud = game.add.tileSprite(0,
+		400,
+		5000,
+		game.cache.getImage('cloud3').height,
+		'cloud3'
+	);
+		
+		//параллакс гор
+		mountainsBack = game.add.tileSprite(0, 
+		game.height - game.cache.getImage('mountains-back').height, 
+		5000, 
+		game.cache.getImage('mountains-back').height, 
+		'mountains-back'
+    );
+		mountainsMid = game.add.tileSprite(0, 
+		game.height - game.cache.getImage('mountains-mid').height, 
+		5000, 
+		game.cache.getImage('mountains-mid').height, 
+		'mountains-mid'
+    );
+		cursors = game.input.keyboard.createCursorKeys();
 
 
 
-		game.add.sprite(0, 100, 'background');
+		//game.add.sprite(0, 100, 'background');
 		game.add.sprite(30, 40, 'tree');
 		game.add.sprite(1400, 40, 'tree');
 		game.add.sprite(1200, 40, 'tree');
@@ -117,8 +138,7 @@ var playState = {
         enemy5.animations.play('monster_hit2');
 
 
-		scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
+		//scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 		cursors = game.input.keyboard.createCursorKeys();
 
 		game.input.onTap.add(function(pointer, isDoubleClick) {
@@ -131,10 +151,18 @@ var playState = {
 	update: function () {
 
 			if (cursors.left.isDown)	{
-        		tilesprite.tilePosition.x += 0.1;
+        		mountainsBack.tilePosition.x += 0.3;
     		} else if (cursors.right.isDown)	{
-        		tilesprite.tilePosition.x -= 0.1;
+        		mountainsBack.tilePosition.x -= 0.3;
 			};
+
+			if (cursors.left.isDown)	{
+        		mountainsMid.tilePosition.x += 0.6;
+    		} else if (cursors.right.isDown)	{
+        		mountainsMid.tilePosition.x -= 0.6;
+			};
+
+		cloud.tilePosition.x -= 0.1;
 
 		game.physics.arcade.collide(player, platforms);
 		game.physics.arcade.collide(enemies, platforms);
@@ -211,12 +239,12 @@ var playState = {
 
 };
 
-function collect (player, trophy) {
+//function collect (player, trophy) {
 	// Removes the trophy from the screen
-	trophy.kill();
-	score += 30;
-	scoreText.text = 'Score: ' + score;
-};
+	//trophy.kill();
+	//score += 30;
+	//scoreText.text = 'Score: ' + score;
+//};
 
 function killEnemy (player, enemy) {
 	if (stop == false) game.time.events.add(300, function() {
