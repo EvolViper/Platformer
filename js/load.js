@@ -13,6 +13,7 @@ var loadState = {
         //game.load.image('background', 'assets/background.png');
         game.load.image('mountains-back', 'assets/mountains-back.png');
         game.load.image('mountains-mid', 'assets/mountains-mid.png');
+        game.load.image('cloud2', 'assets/cloud2.png');
         game.load.image('cloud3', 'assets/cloud3.png');
         game.load.image('ground', 'assets/platform.png');
         game.load.image('platform1', 'assets/platform1.png');

@@ -31,8 +31,9 @@ var playState = {
 
 
 		// облака
-		cloud = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
-
+		cloud2 = game.add.tileSprite(0, 300, 5000, game.cache.getImage('cloud2').height, 'cloud2');
+		cloud3 = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
+		
 		// горы
 		background.objects.push(game.add.tileSprite(0, game.height - game.cache.getImage('mountains-back').height, 5000, game.cache.getImage('mountains-back').height, 'mountains-back'));
 		background.speeds.push(0.3);
@@ -50,8 +51,8 @@ var playState = {
 		var kitSprite = game.add.sprite(2160, 200, 'kit');
 
 
-		var kitTween = game.add.tween(kitSprite);
-		kitTween.to({y:240}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+		//var kitTween = game.add.tween(kitSprite);
+		//kitTween.to({y:240}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
 
 
@@ -138,8 +139,9 @@ var playState = {
 		player.body.velocity.x = 0;
 
 		// двигаем облака
-		cloud.tilePosition.x -= 0.1;
-
+		cloud2.tilePosition.x -= 0.1;
+		cloud3.tilePosition.x -= 0.2;
+		
 		game.physics.arcade.collide(player, platforms);
 		game.physics.arcade.collide(player, enemies, killEnemy, null, this);
 		game.physics.arcade.collide(player, myPlatforms);
