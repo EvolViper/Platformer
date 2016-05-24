@@ -31,8 +31,9 @@ var playState = {
 
 
 		// облака
-		сloud2 = game.add.tileSprite(0, 00, 5000, game.cache.getImage('cloud2').height, 'cloud2');
-		cloud3 = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
+		сloud1 = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
+		сloud2 = game.add.tileSprite(0, 0, 5000, game.cache.getImage('cloud2').height, 'cloud2');
+		cloud3 = game.add.tileSprite(0, 0, 5000, game.cache.getImage('cloud3').height, 'cloud3');
 		
 		// горы
 		background.objects.push(game.add.tileSprite(0, game.height - game.cache.getImage('mountains-back').height, 5000, game.cache.getImage('mountains-back').height, 'mountains-back'));
@@ -140,6 +141,7 @@ var playState = {
 		player.body.velocity.x = 0;
 
 		// двигаем облака
+		сloud1.tilePosition.x -= 0.4;
 		сloud2.tilePosition.x -= 0.2;
 		cloud3.tilePosition.x -= 0.3;
 		
