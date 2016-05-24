@@ -31,7 +31,7 @@ var playState = {
 
 
 		// облака
-		cloud2 = game.add.tileSprite(0, 300, 5000, game.cache.getImage('cloud2').height, 'cloud2');
+		сloud2 = game.add.tileSprite(0, 00, 5000, game.cache.getImage('cloud2').height, 'cloud2');
 		cloud3 = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
 		
 		// горы
@@ -48,7 +48,8 @@ var playState = {
 		game.add.sprite(30, 40, 'tree');
 		game.add.sprite(1400, 40, 'tree');
 		game.add.sprite(1200, 40, 'tree');
-		var kitSprite = game.add.sprite(2160, 200, 'kit');
+		//var kitSprite = 
+		game.add.sprite(2160, 240, 'kit');
 
 
 		//var kitTween = game.add.tween(kitSprite);
@@ -139,8 +140,8 @@ var playState = {
 		player.body.velocity.x = 0;
 
 		// двигаем облака
-		cloud2.tilePosition.x -= 0.1;
-		cloud3.tilePosition.x -= 0.2;
+		сloud2.tilePosition.x -= 0.2;
+		cloud3.tilePosition.x -= 0.3;
 		
 		game.physics.arcade.collide(player, platforms);
 		game.physics.arcade.collide(player, enemies, killEnemy, null, this);
