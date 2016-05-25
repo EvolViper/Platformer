@@ -232,15 +232,15 @@ function EnemyMushroom(x, y) {
 
 
 function EnemyMonster(x, y) {
-	this.enemy = enemies.create(x, y, "monster");
+	this.enemy = enemies.create(x, y, "monster_run_attack");
 	this.enemy.anchor.setTo(.5,.5)
 	this.enemy.scale.x *= -1;
 	game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
-	this.enemy.body.setSize(236, 225);
+	this.enemy.body.setSize(236, 260);
 	this.enemy.body.gravity.y = 300;
 	this.enemy.body.velocity.x = 200;
 	this.enemy.body.collideWorldBounds = true;
-	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 };
 
 
