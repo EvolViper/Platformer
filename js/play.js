@@ -34,7 +34,7 @@ var playState = {
 		сloud1 = game.add.tileSprite(0, 400, 5000, game.cache.getImage('cloud3').height, 'cloud3');
 		сloud2 = game.add.tileSprite(0, 0, 5000, game.cache.getImage('cloud2').height, 'cloud2');
 		cloud3 = game.add.tileSprite(0, 0, 5000, game.cache.getImage('cloud3').height, 'cloud3');
-		
+
 		// горы
 		background.objects.push(game.add.tileSprite(0, game.height - game.cache.getImage('mountains-back').height, 5000, game.cache.getImage('mountains-back').height, 'mountains-back'));
 		background.speeds.push(0.3);
@@ -49,7 +49,7 @@ var playState = {
 		game.add.sprite(30, 40, 'tree');
 		game.add.sprite(1400, 40, 'tree');
 		game.add.sprite(1200, 40, 'tree');
-		//var kitSprite = 
+		//var kitSprite =
 		game.add.sprite(2160, 240, 'kit');
 
 
@@ -111,21 +111,31 @@ var playState = {
 
 		enemy2 = new EnemyMonster(1200, 400);
 		enemy2.enemy.animations.play("move");
-	  
+
 		//Тест анимации
+<<<<<<< HEAD
 		enemy3 = game.add.sprite(1200, 190, "monster_death");
 		enemy3.animations.add("monster_die", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 24, true);
 		enemy3.animations.play('monster_die');
 		
+=======
+		enemy3 = game.add.sprite(1200, 140, "monster_attack");
+		enemy3.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 24, true);
+		enemy3.animations.play('monster_hit');
+
+>>>>>>> origin/master
 		//Тест анимации
 		enemy4 = game.add.sprite(1400, 140, "monster_run_attack");
 		enemy4.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 38, true);
 		enemy4.animations.play('monster_hit');
-		
+
 		//Тест анимации
 		enemy5 = game.add.sprite(1600, 170, "monster");
 		enemy5.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 38, true);
 		enemy5.animations.play('monster_hit');
+
+		game.physics.arcade.enable(enemies);
+
 
 		//scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 		cursors = game.input.keyboard.createCursorKeys();
@@ -139,12 +149,13 @@ var playState = {
 
 	update: function () {
 		player.body.velocity.x = 0;
+		game.physics.arcade.collide(enemies, null, this);
 
 		// двигаем облака
 		сloud1.tilePosition.x -= 0.4;
 		сloud2.tilePosition.x -= 0.2;
 		cloud3.tilePosition.x -= 0.3;
-		
+
 		game.physics.arcade.collide(player, platforms);
 		game.physics.arcade.collide(player, enemies, killEnemy, null, this);
 		game.physics.arcade.collide(player, myPlatforms);
@@ -197,7 +208,6 @@ var playState = {
 		};
 
 
-
 		//Движение камеры
 		game.camera.follow(player);
 	},
@@ -220,15 +230,19 @@ function killEnemy (player, enemy) {
 
 
 //Конструктор врагов
+function Enemy (x, y) {
+
+};
+
 function EnemyMushroom(x, y) {
 	this.enemy = enemies.create(x, y, "mushroom");
 	game.physics.enable(this.enemy, Phaser.Physics.ARCADE);
 	this.enemy.body.gravity.y = 300;
 	this.enemy.body.velocity.x = -50;
 	this.enemy.body.collideWorldBounds = true;
-
 	this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
 };
+EnemyMushroom.prototype.__proto__ = Enemy.prototype;
 
 
 function EnemyMonster(x, y) {
@@ -242,6 +256,7 @@ function EnemyMonster(x, y) {
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 };
+EnemyMonster.prototype.__proto__ = Enemy.prototype;
 
 
 function changeTexture() {
