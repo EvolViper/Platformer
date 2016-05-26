@@ -113,17 +113,17 @@ var playState = {
 		enemy2.enemy.animations.play("move");
 
 		//Тест анимации
-<<<<<<< HEAD
+
 		enemy3 = game.add.sprite(1200, 190, "monster_death");
 		enemy3.animations.add("monster_die", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 24, true);
 		enemy3.animations.play('monster_die');
-		
-=======
+
+
 		enemy3 = game.add.sprite(1200, 140, "monster_attack");
 		enemy3.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 24, true);
 		enemy3.animations.play('monster_hit');
 
->>>>>>> origin/master
+
 		//Тест анимации
 		enemy4 = game.add.sprite(1400, 140, "monster_run_attack");
 		enemy4.animations.add("monster_hit", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 38, true);
