@@ -25,6 +25,7 @@ var loadState = {
 		game.load.spritesheet('monster', 'assets/monster_run.png', 222, 240, 32);
 		game.load.spritesheet('monster_attack', 'assets/monster_attack.png', 229, 272, 20);
 		game.load.spritesheet('monster_run_attack', 'assets/monster_run_attack.png', 252, 272, 32);
+        game.load.spritesheet('monster_death', 'assets/monster_death.png', 320, 240, 28);
 		game.load.spritesheet('mushroom', 'assets/mushroom_move.png', 143, 200, 32);
 		game.load.spritesheet('mushroom_death', 'assets/mushroom_death.png', 238, 200, 22);
 		game.load.spritesheet('mushroom_attack', 'assets/mushroom_attack.png', 190, 200, 15);
