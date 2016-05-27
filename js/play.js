@@ -7,6 +7,7 @@ var playerPosition;
 var scaleX = false;
 var enemies;
 var stop = true;
+var attack = true;
 var music;
 var cursors;
 var background = {
@@ -186,9 +187,9 @@ var playState = {
 		};
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-		   changeTexture();
-		   player.animations.play('attack');
-		   stop = false;
+		    changeTexture();
+		    player.animations.play('attack');
+		    stop = false;
 		};
 
 
@@ -209,6 +210,7 @@ var playState = {
 	render: function() {
 		//Счетчик FPS
 		game.debug.text(game.time.fps, 100, 104, "#ffffff");
+        game.debug.text(enemy2.enemy.health, 130, 104, "#ffffff");
 		//game.debug.body(enemy1);
 		//game.debug.body(player);
 	}
@@ -216,12 +218,17 @@ var playState = {
 
 
 function killEnemy (player, enemy) {
-	if (stop == false) game.time.events.add(300, function() {
-		enemy.kill();
-	}, this);
+    if (stop == false && attack == true)  {
+            enemy.health -= 10;
+            attack = false;
+            
+        }  
+	
+    if (enemy.health <= 0) enemy.kill();
 
 };
 
+//game.time.events.add(300, function(){}, this);
 
 //Конструктор врагов
 function Enemy (x, y) {
@@ -235,6 +242,7 @@ function EnemyMushroom(x, y) {
 	this.enemy.body.velocity.x = -50;
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
+    this.enemy.health = 30;
 };
 EnemyMushroom.prototype.__proto__ = Enemy.prototype;
 
@@ -249,6 +257,7 @@ function EnemyMonster(x, y) {
 	this.enemy.body.velocity.x = 200;
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+    this.enemy.health = 40;
 };
 EnemyMonster.prototype.__proto__ = Enemy.prototype;
 
@@ -266,6 +275,7 @@ function afterDeath() {
 	player.loadTexture("mushroom", 0, false);
 	player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
+    attack = true;
 };
 
 
