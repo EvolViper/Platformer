@@ -218,13 +218,10 @@ var playState = {
 	render: function() {
 		//Счетчик FPS
 		game.debug.text(game.time.fps, 100, 104, "#ffffff");
-<<<<<<< HEAD
         game.debug.text(enemy1.enemy.health, 130, 104, "#ffffff");
 		//game.debug.body(enemy1.enemy);
-=======
 		game.debug.text(enemy2.enemy.health, 130, 104, "#ffffff");
 		//game.debug.body(enemy1);
->>>>>>> origin/master
 		//game.debug.body(player);
 	}
 };
