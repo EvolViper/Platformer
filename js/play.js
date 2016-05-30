@@ -58,8 +58,6 @@ var playState = {
 		//kitTween.to({y:240}, 2000, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 
 
-
-
 		platforms = game.add.group();
 		platforms.enableBody = true;
 		var ground = platforms.create(0, 1000, 'ground');
@@ -99,8 +97,6 @@ var playState = {
 		player.body.collideWorldBounds = true;
 
 
-
-
 		player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 		player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 
@@ -131,6 +127,17 @@ var playState = {
 
 		game.physics.arcade.enable(enemies);
 
+		var rectangle = this.game.add.bitmapData(300, 30);
+		rectangle.ctx.beginPath();
+		rectangle.ctx.rect(0, 0, 300, 80);
+		rectangle.ctx.fillStyle = '#CC0000';
+		rectangle.ctx.fill();
+
+		var healthIndicator = this.game.add.sprite(1000, 950, rectangle);
+		healthIndicator.anchor.set(0.5);
+		healthIndicator.fixedToCamera = true;
+		var healthText = game.add.text(960, 940, "100/100", {font: '20px Consolas', fill: '#FFFFFF'});
+		healthText.fixedToCamera = true;
 
 		//scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 		cursors = game.input.keyboard.createCursorKeys();
@@ -143,6 +150,7 @@ var playState = {
 	},
 
 	update: function () {
+
 		player.body.velocity.x = 0;
 		game.physics.arcade.collide(enemies, null, this);
 
@@ -187,9 +195,9 @@ var playState = {
 		};
 
 		if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-		    changeTexture();
-		    player.animations.play('attack');
-		    stop = false;
+			changeTexture();
+			player.animations.play('attack');
+			stop = false;
 		};
 
 
@@ -210,21 +218,26 @@ var playState = {
 	render: function() {
 		//Счетчик FPS
 		game.debug.text(game.time.fps, 100, 104, "#ffffff");
+<<<<<<< HEAD
         game.debug.text(enemy1.enemy.health, 130, 104, "#ffffff");
 		//game.debug.body(enemy1.enemy);
+=======
+		game.debug.text(enemy2.enemy.health, 130, 104, "#ffffff");
+		//game.debug.body(enemy1);
+>>>>>>> origin/master
 		//game.debug.body(player);
 	}
 };
 
 
 function killEnemy (player, enemy) {
-    if (stop == false && attack == true)  {
-            enemy.health -= 10;
-            attack = false;
-            
-        }  
-	
-    if (enemy.health <= 0) enemy.kill();
+	if (stop == false && attack == true)  {
+			enemy.health -= 10;
+			attack = false;
+
+		}
+
+	if (enemy.health <= 0) enemy.kill();
 
 };
 
@@ -242,7 +255,7 @@ function EnemyMushroom(x, y) {
 	this.enemy.body.velocity.x = -50;
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add('move', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 40, true);
-    this.enemy.health = 30;
+	this.enemy.health = 30;
 };
 EnemyMushroom.prototype.__proto__ = Enemy.prototype;
 
@@ -257,7 +270,7 @@ function EnemyMonster(x, y) {
 	this.enemy.body.velocity.x = 200;
 	this.enemy.body.collideWorldBounds = true;
 	this.enemy.animations.add("move", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
-    this.enemy.health = 40;
+	this.enemy.health = 40;
 };
 EnemyMonster.prototype.__proto__ = Enemy.prototype;
 
@@ -275,7 +288,7 @@ function afterDeath() {
 	player.loadTexture("mushroom", 0, false);
 	player.animations.add('left', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
 	player.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31], 45, true);
-    attack = true;
+	attack = true;
 };
 
 
